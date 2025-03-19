@@ -16,11 +16,11 @@ block content
     .btn-group.btn-group-sm
       button.h-draw.btn.btn-default(
         type='button', data-type='point', title='Draw a new point (keyboard shortcut: o)', class=drawingType === 'point' ? 'active' : null)
-        | #[span.icon-circle]Point
+        | #[span.icon-circle]点
     .btn-group.btn-group-sm
       button.h-draw.btn.btn-default(
         type='button', data-type='rectangle', title='Draw a new rectangle (keyboard shortcut: r)', class=drawingType === 'rectangle' ? 'active' : null)
-        | #[span.icon-check-empty]Rectangle
+        | #[span.icon-check-empty]矩形
       button.btn.btn-default.h-dropdown-title.h-brush-dropdown(type='button', data-target='#h-fixed-shape-controls')
         i.icon-down-open
       .h-fixed-shape-controls.h-dropdown-content.collapse
@@ -44,7 +44,7 @@ block content
     .btn-group.btn-group-sm
       button.h-draw.btn.btn-default(
         type='button', data-type='ellipse', title='Draw a new ellipse (keyboard shortcut: i)', class=drawingType === 'ellipse' ? 'active' : null)
-        | #[span.icon-circle-empty.flattenicon]Ellipse
+        | #[span.icon-circle-empty.flattenicon]椭圆
       button.btn.btn-default.h-dropdown-title.h-brush-dropdown(type='button', data-target='#h-fixed-shape-controls')
         i.icon-down-open
       .h-fixed-shape-controls.h-dropdown-content.collapse
@@ -68,15 +68,15 @@ block content
     .btn-group.btn-group-sm
       button.h-draw.btn.btn-default(
         type='button', data-type='circle', title='Draw a new circle (keyboard shortcut: c)', class=drawingType === 'circle' ? 'active' : null)
-        | #[span.icon-circle-empty]Circle
+        | #[span.icon-circle-empty]圆
     .btn-group.btn-group-sm
       button.h-draw.btn.btn-default(
         type='button', data-type='polygon', title='Draw a new polygon (keyboard shortcut: p)', class=drawingType === 'polygon' ? 'active' : null)
-        | #[span.icon-draw-polygon]Polygon
+        | #[span.icon-draw-polygon]多边形
     .btn-group.btn-group-sm
       button.h-draw.btn.btn-default(
         type='button', data-type='line', title='Draw a new line (keyboard shortcut: l)', class=drawingType === 'line' ? 'active' : null)
-        | #[span.icon-pencil]Line
+        | #[span.icon-pencil]线
     .btn-group.btn-group-sm
       button.h-draw.btn.btn-default(
         type='button', data-type='brush', title='Draw with a brush (keyboard shortcut: b)', class=drawingType === 'brush' ? 'active' : null, shape=opts.brush_shape)
@@ -84,7 +84,7 @@ block content
           | #[span.icon-check-empty]
         span.shape.circle
           | #[span.icon-circle-empty]
-        | Brush
+        | 笔刷
       button.btn.btn-default.h-dropdown-title.h-brush-dropdown(type='button', data-target='#h-brush-controls')
         i.icon-down-open
       .h-brush-controls.h-dropdown-content.collapse
