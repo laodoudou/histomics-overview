@@ -1,12 +1,12 @@
-import _ from 'underscore';
-import $ from 'jquery';
+import _ from "underscore";
+import $ from "jquery";
 
-import Panel from '@girder/slicer_cli_web/views/Panel';
+import Panel from "@girder/slicer_cli_web/views/Panel";
 
-import editRegionOfInterest from '../dialogs/editRegionOfInterest';
+import editRegionOfInterest from "../dialogs/editRegionOfInterest";
 
-import zoomWidget from '../templates/panels/zoomWidget.pug';
-import '../stylesheets/panels/zoomWidget.styl';
+import zoomWidget from "../templates/panels/zoomWidget.pug";
+import "../stylesheets/panels/zoomWidget.styl";
 
 /**
  * Define a widget for controlling the view magnification with
@@ -32,12 +32,12 @@ import '../stylesheets/panels/zoomWidget.styl';
  */
 var ZoomWidget = Panel.extend({
     events: _.extend(Panel.prototype.events, {
-        'click .h-zoom-button': '_zoomButton',
-        'input .h-zoom-slider': '_zoomSliderInput',
-        'click .h-download-button-view': '_downloadView',
-        'click .h-download-button-area': '_downloadArea',
-        'click #h-zoom-range-increase': '_increaseZoomRange',
-        'click #h-zoom-range-decrease': '_decreaseZoomRange'
+        "click .h-zoom-button": "_zoomButton",
+        "input .h-zoom-slider": "_zoomSliderInput",
+        "click .h-download-button-view": "_downloadView",
+        "click .h-download-button-area": "_downloadArea",
+        "click #h-zoom-range-increase": "_increaseZoomRange",
+        "click #h-zoom-range-decrease": "_decreaseZoomRange",
     }),
     initialize() {
         // set defaults that will be overwritten when a viewer is added
@@ -50,7 +50,9 @@ var ZoomWidget = Panel.extend({
     },
     render() {
         var value = 0;
-        var min, max, step = 0.025;
+        var min,
+            max,
+            step = 0.025;
         var buttons;
 
         if (this.viewer) {
@@ -61,29 +63,42 @@ var ZoomWidget = Panel.extend({
         // get the minimum value of the slider on a logarithmic scale
         // (here we expand the range slightly to make sure valid ranges
         // aren't clipped due to the slider step size)
-        min = Math.floor((Math.log2(this.zoomToMagnification(this._minZoom)) - Math.log2(this._maxMag)) / step) * step;
+        min =
+            Math.floor(
+                (Math.log2(this.zoomToMagnification(this._minZoom)) -
+                    Math.log2(this._maxMag)) /
+                    step
+            ) * step;
         max = 0;
 
         // get a list of discrete values to show as buttons
-        buttons = _.filter([1, 2.5, 5, 10, 20, 40, 80, 160], (v) => v <= this._maxMag);
+        buttons = _.filter(
+            [1, 2.5, 5, 10, 20, 40, 80, 160],
+            (v) => v <= this._maxMag
+        );
         buttons = _.last(buttons, 6);
         buttons = buttons !== undefined ? [0].concat(buttons) : [0];
 
-        this.$el.html(zoomWidget({
-            id: 'zoom-panel-container',
-            title: 'Zoom',
-            title_download_view: 'Download View',
-            title_download_area: 'Download Area',
-            min,
-            max,
-            maxNaturalMag: this._maxNaturalMag + 0.01,
-            minMag: this.zoomToMagnification(this._minZoom),
-            step,
-            value: Math.log2(value) - Math.log2(this._maxMag),
-            disabled: !this.renderer,
-            buttons,
-            collapsed: this.$('.s-panel-content.collapse').length && !this.$('.s-panel-content').hasClass('in')
-        }));
+        this.$el.html(
+            zoomWidget({
+                id: "zoom-panel-container",
+                // title: 'Zoom',
+                title: "放大倍数",
+                title_download_view: "Download View",
+                title_download_area: "Download Area",
+                min,
+                max,
+                maxNaturalMag: this._maxNaturalMag + 0.01,
+                minMag: this.zoomToMagnification(this._minZoom),
+                step,
+                value: Math.log2(value) - Math.log2(this._maxMag),
+                disabled: !this.renderer,
+                buttons,
+                collapsed:
+                    this.$(".s-panel-content.collapse").length &&
+                    !this.$(".s-panel-content").hasClass("in"),
+            })
+        );
 
         // enable or disable zoom range buttons
         this._zoomRangeControls();
@@ -121,7 +136,10 @@ var ZoomWidget = Panel.extend({
      */
     setMaxMagnification(magnification, increase, increaseRange) {
         this._increaseZoom2x = increase || 0;
-        this._increaseZoom2xRange = increaseRange || {min: this._increaseZoom2x, max: this._increaseZoom2x};
+        this._increaseZoom2xRange = increaseRange || {
+            min: this._increaseZoom2x,
+            max: this._increaseZoom2x,
+        };
         this._maxNaturalMag = magnification;
         this._maxMag = magnification * Math.pow(2, this._increaseZoom2x);
         this._zoomRangeControls();
@@ -153,7 +171,10 @@ var ZoomWidget = Panel.extend({
      * Get the value of the slider in magnification scale.
      */
     _getSliderValue() {
-        return Math.pow(2, Math.log2(this._maxMag) + parseFloat(this.$('.h-zoom-slider').val()));
+        return Math.pow(
+            2,
+            Math.log2(this._maxMag) + parseFloat(this.$(".h-zoom-slider").val())
+        );
     },
 
     /**
@@ -165,7 +186,7 @@ var ZoomWidget = Panel.extend({
         } else {
             val = 0;
         }
-        this.$('.h-zoom-slider').val(val);
+        this.$(".h-zoom-slider").val(val);
     },
 
     /**
@@ -184,7 +205,7 @@ var ZoomWidget = Panel.extend({
      * A handler called when one of the magnification buttons is clicked.
      */
     _zoomButton(evt) {
-        this.setMagnification(this.$(evt.currentTarget).data('value'));
+        this.setMagnification(this.$(evt.currentTarget).data("value"));
         this._zoomSliderInput();
     },
 
@@ -200,17 +221,21 @@ var ZoomWidget = Panel.extend({
             top: bounds.top < 0 ? 0 : Math.round(bounds.top),
             right: bounds.right < 0 ? 0 : Math.round(bounds.right),
             bottom: bounds.bottom < 0 ? 0 : Math.round(bounds.bottom),
-            contentDisposition: 'attachment'
+            contentDisposition: "attachment",
         });
-        let urlView = this.viewer.getFrameAndUrl().url.replace('/zxy/{z}/{x}/{y}', '/region');
-        urlView += (urlView.indexOf('?') >= 0 ? '&' : '?') + params;
+        let urlView = this.viewer
+            .getFrameAndUrl()
+            .url.replace("/zxy/{z}/{x}/{y}", "/region");
+        urlView += (urlView.indexOf("?") >= 0 ? "&" : "?") + params;
         if (this._cancelSelection) {
             this.viewer.annotationLayer.mode(null);
             this._cancelSelection = false;
-            this.$('.h-download-button-area').removeClass('h-download-area-button-selected');
+            this.$(".h-download-button-area").removeClass(
+                "h-download-area-button-selected"
+            );
         }
-        this.$('a.h-download-link#download-view-link').attr({
-            href: urlView
+        this.$("a.h-download-link#download-view-link").attr({
+            href: urlView,
         });
     },
 
@@ -224,9 +249,13 @@ var ZoomWidget = Panel.extend({
         if (this._cancelSelection) {
             this.viewer.annotationLayer.mode(null);
             this._cancelSelection = false;
-            this.$('.h-download-button-area').removeClass('h-download-area-button-selected');
+            this.$(".h-download-button-area").removeClass(
+                "h-download-area-button-selected"
+            );
         } else {
-            this.$('.h-download-button-area').addClass('h-download-area-button-selected');
+            this.$(".h-download-button-area").addClass(
+                "h-download-area-button-selected"
+            );
             this._cancelSelection = true;
             this.viewer.drawRegion().then((coord) => {
                 var areaParams = {
@@ -237,10 +266,12 @@ var ZoomWidget = Panel.extend({
                     magnification: mag,
                     maxZoom,
                     maxMag,
-                    frameAndUrl: this.viewer.getFrameAndUrl()
+                    frameAndUrl: this.viewer.getFrameAndUrl(),
                 };
                 this._cancelSelection = false;
-                this.$('.h-download-button-area').removeClass('h-download-area-button-selected');
+                this.$(".h-download-button-area").removeClass(
+                    "h-download-area-button-selected"
+                );
                 editRegionOfInterest(areaParams);
                 return this;
             });
@@ -255,22 +286,28 @@ var ZoomWidget = Panel.extend({
         if (this.renderer && !this._inZoomChange) {
             this.renderer.zoom(this.magnificationToZoom(val));
         }
-        this.$('.h-zoom-value').text(val.toFixed(1));
+        this.$(".h-zoom-value").text(val.toFixed(1));
     },
 
     _zoomRangeControls() {
         if (this._increaseZoom2xRange) {
-            this.$('#h-zoom-range-increase').toggleClass('disabled', this._increaseZoom2x >= this._increaseZoom2xRange.max);
-            this.$('#h-zoom-range-decrease').toggleClass('disabled', this._increaseZoom2x <= this._increaseZoom2xRange.min);
+            this.$("#h-zoom-range-increase").toggleClass(
+                "disabled",
+                this._increaseZoom2x >= this._increaseZoom2xRange.max
+            );
+            this.$("#h-zoom-range-decrease").toggleClass(
+                "disabled",
+                this._increaseZoom2x <= this._increaseZoom2xRange.min
+            );
         }
     },
 
     _increaseZoomRange() {
         if (this._increaseZoom2x < this._increaseZoom2xRange.max) {
             this._increaseZoom2x += 1;
-            var oldmax = parseInt(this.$('.h-zoom-slider').attr('max'), 10);
-            this.$('.h-zoom-slider').attr('max', oldmax + 1);
-            this.renderer.zoomRange({max: this.renderer.zoomRange().max + 1});
+            var oldmax = parseInt(this.$(".h-zoom-slider").attr("max"), 10);
+            this.$(".h-zoom-slider").attr("max", oldmax + 1);
+            this.renderer.zoomRange({ max: this.renderer.zoomRange().max + 1 });
         }
         this._zoomRangeControls();
     },
@@ -278,12 +315,12 @@ var ZoomWidget = Panel.extend({
     _decreaseZoomRange() {
         if (this._increaseZoom2x > this._increaseZoom2xRange.min) {
             this._increaseZoom2x -= 1;
-            var oldmax = parseInt(this.$('.h-zoom-slider').attr('max'), 10);
-            this.$('.h-zoom-slider').attr('max', oldmax - 1);
-            this.renderer.zoomRange({max: this.renderer.zoomRange().max - 1});
+            var oldmax = parseInt(this.$(".h-zoom-slider").attr("max"), 10);
+            this.$(".h-zoom-slider").attr("max", oldmax - 1);
+            this.renderer.zoomRange({ max: this.renderer.zoomRange().max - 1 });
         }
         this._zoomRangeControls();
-    }
+    },
 });
 
 export default ZoomWidget;
