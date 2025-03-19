@@ -48,11 +48,9 @@ if elements.length
     //-  - var displayLabel = chineseLabels[label] || label;
     .h-element(data-id=element.id, class=classes)
       span.icon-cog.h-edit-element(title='Change style')
-      span.h-element-label(title=label, display_id=displayId) #{label}
+      span.h-element-label(title=label, display_id=displayId) 工具按钮
       span.icon-zoom-in.h-view-element(title='View annotation')
       span.icon-cancel.h-delete-element(title='Remove')
-      script.
-        console.log('工具按钮名称',label);
 if pixelmap
   .h-group-count-option.pixelmap.hidden
 if firstRender
