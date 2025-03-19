@@ -36,19 +36,19 @@ if elements.length
       if (element.type === 'pixelmap') {
         pixelmap = true;
       }
-      - var chineseLabels = {
-        'point': '点',
-        'line': '线',
-        'polygon': '多边形',
-        'rectangle': '矩形',
-        'ellipse': '椭圆',
-        'circle': '圆',
-        'brush': '笔刷',
-        };
-     - var displayLabel = chineseLabels[label] || label;
+    //-   - var chineseLabels = {
+    //-     'point': '点',
+    //-     'line': '线',
+    //-     'polygon': '多边形',
+    //-     'rectangle': '矩形',
+    //-     'ellipse': '椭圆',
+    //-     'circle': '圆',
+    //-     'brush': '笔刷',
+    //-     };
+    //-  - var displayLabel = chineseLabels[label] || label;
     .h-element(data-id=element.id, class=classes)
       span.icon-cog.h-edit-element(title='Change style')
-      span.h-element-label(title=label, display_id=displayId) #{displayLabel}
+      span.h-element-label(title=label, display_id=displayId) #{label}
       span.icon-zoom-in.h-view-element(title='View annotation')
       span.icon-cancel.h-delete-element(title='Remove')
 if pixelmap
