@@ -35,6 +35,12 @@ function getQuery() {
 
 var App = GirderApp.extend({
     initialize(settings) {
+        const params = new URLSearchParams(window.location.search);
+        console.log("获取浏览器参数params0", params);
+        const paramValue = params.get("image");
+        const paramValue2 = params.get("bounds");
+        console.log("获取浏览器参数image", paramValue);
+        console.log("获取浏览器参数bounds0", paramValue2);
         this.$nextTick = function () {
             const params = new URLSearchParams(window.location.search);
             console.log("获取浏览器参数params", params);
@@ -51,14 +57,12 @@ var App = GirderApp.extend({
     },
 
     render() {
-        this.$nextTick = function () {
-            const params = new URLSearchParams(window.location.search);
-            console.log("获取浏览器参数params1", params);
-            const paramValue = params.get("image");
-            const paramValue2 = params.get("bounds");
-            console.log("获取浏览器参数image1", paramValue);
-            console.log("获取浏览器参数bounds1", paramValue2);
-        };
+        const params = new URLSearchParams(window.location.search);
+        console.log("获取浏览器参数params1", params);
+        const paramValue = params.get("image");
+        const paramValue2 = params.get("bounds");
+        console.log("获取浏览器参数image1", paramValue);
+        console.log("获取浏览器参数bounds1", paramValue2);
         this.$el.html(layoutTemplate());
 
         this.huiHeader = new HeaderView({
