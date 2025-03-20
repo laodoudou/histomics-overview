@@ -35,7 +35,8 @@ function getQuery() {
 
 var App = GirderApp.extend({
     initialize(settings) {
-        console.log("获取路由参数query", getQuery());
+        const params = new URLSearchParams(window.location.search);
+        console.log("获取浏览器参数params", params);
         if (getQuery().token) {
             setCurrentToken(getQuery().token);
         }
