@@ -35,6 +35,9 @@ function getQuery() {
 
 var App = GirderApp.extend({
     initialize(settings) {
+        console.log("当前 URL:", window.location.href);
+        console.log("查询字符串:", window.location.search);
+
         const params = new URLSearchParams(window.location.search);
         console.log("获取浏览器参数params0", params);
         const paramValue = params.get("image");
@@ -57,6 +60,8 @@ var App = GirderApp.extend({
     },
 
     render() {
+        console.log("当前 URL:", window.location.href);
+        console.log("查询字符串:", window.location.search);
         const params = new URLSearchParams(window.location.search);
         console.log("获取浏览器参数params1", params);
         const paramValue = params.get("image");
@@ -107,6 +112,7 @@ var App = GirderApp.extend({
      * logout, we redirect to the front page.
      */
     login() {
+        console.log("当前 URL123:", window.location.href);
         var route = splitRoute(Backbone.history.fragment).base;
         Backbone.history.fragment = null;
         eventStream.close();
