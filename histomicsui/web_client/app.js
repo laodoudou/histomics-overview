@@ -49,12 +49,14 @@ var App = GirderApp.extend({
         console.log("当前 URL:", window.location.href);
         const params = getQueryParam(url);
         console.log("hash 参数:", params);
-        if (params.get("image")) {
-            console.log("image参数:", params.get("image"));
+        const girderToken = params.get("girderToken");
+        if (girderToken) {
+            console.log("girderToken参数:", girderToken);
+            setCurrentToken(girderToken);
         }
-        if (getQuery().token) {
-            setCurrentToken(getQuery().token);
-        }
+        // if (getQueryParam().token) {
+        //     setCurrentToken(getQuery().token);
+        // }
         this.settings = settings;
         return GirderApp.prototype.initialize.apply(this, arguments);
     },
