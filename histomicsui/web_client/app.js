@@ -33,25 +33,24 @@ function getQuery() {
     return query;
 }
 
+function getQueryParam(url) {
+    // 创建 URL 对象
+    const urlObj = new URL(url);
+    // 获取 URL 的 hash 部分
+    const hash = urlObj.hash.slice(2); // 去掉开头的 #?
+    // 创建 URLSearchParams 对象
+    const params = new URLSearchParams(hash);
+    return params;
+}
+
 var App = GirderApp.extend({
     initialize(settings) {
+        const url = window.location.href;
         console.log("当前 URL:", window.location.href);
-        console.log("查询字符串:", window.location.search);
-
-        const params = new URLSearchParams(window.location.search);
-        console.log("获取浏览器参数params0", params);
-        const paramValue = params.get("image");
-        const paramValue2 = params.get("bounds");
-        console.log("获取浏览器参数image", paramValue);
-        console.log("获取浏览器参数bounds0", paramValue2);
-        this.$nextTick = function () {
-            const params = new URLSearchParams(window.location.search);
-            console.log("获取浏览器参数params", params);
-            const paramValue = params.get("image");
-            const paramValue2 = params.get("bounds");
-            console.log("获取浏览器参数image", paramValue);
-            console.log("获取浏览器参数bounds", paramValue2);
-        };
+        const params = getQueryParam(url);
+        console.log("hash 参数:", params);
+        if (params.get("image")) {
+            console.log("image参数:", params.get("image"));
         if (getQuery().token) {
             setCurrentToken(getQuery().token);
         }
@@ -60,14 +59,6 @@ var App = GirderApp.extend({
     },
 
     render() {
-        console.log("当前 URL:", window.location.href);
-        console.log("查询字符串:", window.location.search);
-        const params = new URLSearchParams(window.location.search);
-        console.log("获取浏览器参数params1", params);
-        const paramValue = params.get("image");
-        const paramValue2 = params.get("bounds");
-        console.log("获取浏览器参数image1", paramValue);
-        console.log("获取浏览器参数bounds1", paramValue2);
         this.$el.html(layoutTemplate());
 
         this.huiHeader = new HeaderView({
@@ -112,7 +103,6 @@ var App = GirderApp.extend({
      * logout, we redirect to the front page.
      */
     login() {
-        console.log("当前 URL123:", window.location.href);
         var route = splitRoute(Backbone.history.fragment).base;
         Backbone.history.fragment = null;
         eventStream.close();
