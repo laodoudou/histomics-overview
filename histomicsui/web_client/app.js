@@ -51,11 +51,12 @@ var App = GirderApp.extend({
         console.log("hash 参数:", params);
         if (params.get("image")) {
             console.log("image参数:", params.get("image"));
-        if (getQuery().token) {
-            setCurrentToken(getQuery().token);
+            if (getQuery().token) {
+                setCurrentToken(getQuery().token);
+            }
+            this.settings = settings;
+            return GirderApp.prototype.initialize.apply(this, arguments);
         }
-        this.settings = settings;
-        return GirderApp.prototype.initialize.apply(this, arguments);
     },
 
     render() {
