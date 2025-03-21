@@ -53,6 +53,7 @@ var App = GirderApp.extend({
         if (girderToken) {
             console.log("girderToken参数:", girderToken);
             setCurrentToken(girderToken);
+            window.localStorage.setItem("girderToken", girderToken);
         }
         // if (getQueryParam().token) {
         //     setCurrentToken(getQuery().token);
