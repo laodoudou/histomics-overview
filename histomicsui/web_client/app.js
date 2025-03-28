@@ -48,7 +48,6 @@ var App = GirderApp.extend({
         const url = window.location.href;
         console.log("当前 URL:", window.location.href);
         const params = getQueryParam(url);
-        console.log("hash 参数:", params);
         const girderToken = params.get("girderToken");
         if (girderToken) {
             console.log("girderToken参数:", girderToken);

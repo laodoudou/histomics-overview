@@ -132,6 +132,12 @@ var DrawWidget = Panel.extend({
         if (this._skipRenderHTML) {
             delete this._skipRenderHTML;
         } else {
+            console.log(
+                "drawWidget标签工具",
+                this._groups,
+                this.parentView._defaultGroup
+            );
+            console.log("drawWidget标签信息", this.annotation);
             this.$el.html(
                 drawWidget({
                     // title: 'Draw',
