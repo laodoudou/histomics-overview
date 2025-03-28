@@ -434,6 +434,7 @@ var AnnotationSelector = Panel.extend({
     },
 
     editAnnotation(model) {
+        console.log("AnnotationSelector_437选择当前标签", model);
         // deselect the annotation if it is already selected
         if (
             this._activeAnnotation &&
