@@ -134,12 +134,23 @@ var DrawWidget = Panel.extend({
         } else {
             console.log("drawWidget标签工具", this._groups);
             console.log("drawWidget标签信息", this.annotation);
+
+            // 设置标签线颜色
             const settedLineColor = this.getAnnotationLineColor(
                 this.annotation
             );
             if (settedLineColor) {
                 this._groups.models.forEach((group) => {
                     group.attributes.lineColor = settedLineColor;
+                });
+            }
+            // 设置标签填充颜色
+            const settedFillColor = this.getAnnotationFillColor(
+                this.annotation
+            );
+            if (settedFillColor) {
+                this._groups.models.forEach((group) => {
+                    group.attributes.fillColor = settedFillColor;
                 });
             }
             console.log("设置后的标签线颜色", this._groups);
@@ -240,6 +251,21 @@ var DrawWidget = Panel.extend({
             lineColor = element.lineColor;
         }
         return lineColor;
+    },
+
+    /**
+     * 获取标注填充颜色
+     * @param {*} annotation
+     * @returns
+     */
+    getAnnotationFillColor(annotation) {
+        const elements = annotation.get("annotation").elements;
+        let fillColor = null;
+        if (elements && elements.length > 0) {
+            const element = elements[0];
+            fillColor = element.fillColor;
+        }
+        return fillColor;
     },
 
     /**
