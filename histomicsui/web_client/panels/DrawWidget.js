@@ -142,7 +142,7 @@ var DrawWidget = Panel.extend({
                     group.attributes.lineColor = settedLineColor;
                 });
             }
-            console.log("设置后的标签线颜色", group.attributes.lineColor);
+            console.log("设置后的标签线颜色", this._groups);
             this.$el.html(
                 drawWidget({
                     // title: 'Draw',
