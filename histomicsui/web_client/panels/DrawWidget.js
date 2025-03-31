@@ -133,8 +133,16 @@ var DrawWidget = Panel.extend({
             delete this._skipRenderHTML;
         } else {
             console.log("drawWidget标签工具", this._groups);
-            console.log("标签工具默认", this.parentView._defaultGroup);
             console.log("drawWidget标签信息", this.annotation);
+            const settedLineColor = this.getAnnotationLineColor(
+                this.annotation
+            );
+            if (settedLineColor) {
+                this._groups.models.forEach((group) => {
+                    group.attributes.lineColor = settedLineColor;
+                });
+            }
+            console.log("设置后的标签线颜色", group.attributes.lineColor);
             this.$el.html(
                 drawWidget({
                     // title: 'Draw',
@@ -217,6 +225,21 @@ var DrawWidget = Panel.extend({
                 }
             );
         }
+    },
+
+    /**
+     * 获取标注线颜色
+     * @param {*} annotation
+     * @returns
+     */
+    getAnnotationLineColor(annotation) {
+        const elements = annotation.get("annotation").elements;
+        const lineColor = null;
+        if (elements && elements.length > 0) {
+            const element = elements[0];
+            lineColor = element.lineColor;
+        }
+        return lineColor;
     },
 
     /**
