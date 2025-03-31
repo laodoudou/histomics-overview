@@ -234,7 +234,7 @@ var DrawWidget = Panel.extend({
      */
     getAnnotationLineColor(annotation) {
         const elements = annotation.get("annotation").elements;
-        const lineColor = null;
+        let lineColor = null;
         if (elements && elements.length > 0) {
             const element = elements[0];
             lineColor = element.lineColor;
