@@ -53,7 +53,7 @@ var AnnotationSelector = Panel.extend({
      */
     initialize(settings = {}) {
         this._expandedGroups = new Set();
-        this._opacity = settings.opacity || 0.9;
+        this._opacity = settings.opacity || 1.0;
         this._fillOpacity = settings.fillOpacity || 1.0;
         this._showAllAnnotationsState = false;
         this.listenTo(
@@ -242,12 +242,10 @@ var AnnotationSelector = Panel.extend({
     toggleAnnotation(evt) {
         var id = $(evt.currentTarget).parents(".h-annotation").data("id");
         var model = this.collection.get(id);
-        console.log("选择当前标签", model);
         // any manual change in the display state will reset the "forced display" behavior
         this._showAllAnnotationsState = false;
         model.set("displayed", !model.get("displayed"));
         if (!model.get("displayed")) {
-            console.log("打开选择当前标签工具", model);
             model.unset("highlight");
             this._deselectAnnotationElements(model);
             this._deactivateAnnotation(model);

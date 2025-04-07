@@ -30,6 +30,7 @@ import FrameSelectorWidget from '../../panels/FrameSelectorWidget';
 import MetadataWidget from '../../panels/MetadataWidget';
 import MetadataPlot from '../../panels/MetadataPlot';
 import DrawWidget from '../../panels/DrawWidget';
+import QuestionNumberWidget from '../../panels/QuestionNumberWidget';
 import editElement from '../../dialogs/editElement';
 import router from '../../router';
 import events from '../../events';
@@ -99,6 +100,10 @@ var ImageView = View.extend({
             parentView: this,
             collection: this.annotations,
             image: this.model
+        });
+        this.questionNumberWidget = new QuestionNumberWidget({
+            parentView: this,
+            questionNumber: 1 // 可按需传入初始题号
         });
         /* Should be after annotationSelector */
         this.metadataPlot = new MetadataPlot({
@@ -297,6 +302,10 @@ var ImageView = View.extend({
                 this.annotationSelector
                     .setViewer(this.viewerWidget)
                     .setElement('.h-annotation-selector').render();
+                
+                this.questionNumberWidget
+                    .setViewer(this.viewerWidget)
+                    .setElement('.h-question-number-widget').render();
 
                 if (this.drawWidget) {
                     this.$('.h-draw-widget').removeClass('hidden');
