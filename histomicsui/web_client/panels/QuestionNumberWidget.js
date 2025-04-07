@@ -1,5 +1,5 @@
 // import View from "../View";
-import Panel from '@girder/slicer_cli_web/views/Panel';
+import Panel from "@girder/slicer_cli_web/views/Panel";
 import questionNumberWidget from "../templates/panels/questionNumberWidget.pug";
 
 var QuestionNumberWidget = Panel.extend({
@@ -8,15 +8,21 @@ var QuestionNumberWidget = Panel.extend({
         this.render();
     },
     render() {
-        this.$el.html(questionNumberWidget({
-            title: '答题卡',
-            questionNumber: this.questionNumber
-        }));
+        this.$el.html(
+            questionNumberWidget({
+                title: "答题卡",
+                questionNumber: this.questionNumber,
+            })
+        );
         return this;
     },
     updateQuestionNumber(newNumber) {
         this.questionNumber = newNumber;
         this.render();
+    },
+    setViewer(viewer) {
+        this.viewer = viewer; // 存储viewer引用
+        return this; // 支持链式调用
     },
 });
 
