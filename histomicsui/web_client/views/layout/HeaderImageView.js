@@ -1,4 +1,4 @@
-import $ from 'jquery';
+import $, { error } from 'jquery';
 
 import {restRequest} from '@girder/core/rest';
 
@@ -8,6 +8,7 @@ import View from '../View';
 
 import headerImageTemplate from '../../templates/layout/headerImage.pug';
 import '../../stylesheets/layout/headerImage.styl';
+import { getTaskDetail } from '../../api/bussinessPlatform';
 
 var HeaderImageView = View.extend({
     events: {
@@ -16,6 +17,9 @@ var HeaderImageView = View.extend({
         },
         'click .h-open-annotated-image': function (evt) {
             events.trigger('h:openAnnotatedImageUi');
+        },
+        'click .h-open-taskdetail': function (evt) {
+            this.getTaskDetailInfo();
         }
     },
 
@@ -77,6 +81,19 @@ var HeaderImageView = View.extend({
                 this._nextName = next.name;
             })
         ).done(() => this.render());
+    },
+
+    // 获取任务详情
+    getTaskDetailInfo() {
+        console.log('获取任务详情');
+        const params = {
+            id: this.model.id
+          };
+        getTaskDetail(params).then(res => {
+            console.log('任务详情',res.data);
+        }).catch(error => {
+            console.log('获取任务详情失败',error);
+        })
     }
 });
 

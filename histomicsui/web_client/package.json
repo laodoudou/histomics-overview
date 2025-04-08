@@ -34,6 +34,7 @@
     },
     "dependencies": {
         "@vue/compiler-sfc": "^3.2.33",
+        "axios": "^1.8.4",
         "backbone.localstorage": "^2.0.2",
         "bootstrap-submenu": "^2.0.4",
         "copy-webpack-plugin": "^4.5.2",
