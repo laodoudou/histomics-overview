@@ -31,6 +31,7 @@ module.exports = function (config) {
         resource: {
             test: /\.vue$/
         },
+        exclude: /node_modules\/(?!axios)/, // 排除node_modules但保留axios
         use: [
             require.resolve('vue-loader')
         ]
