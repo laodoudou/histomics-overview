@@ -1,4 +1,4 @@
-import $, { error } from 'jquery';
+import $ from 'jquery';
 
 import {restRequest} from '@girder/core/rest';
 

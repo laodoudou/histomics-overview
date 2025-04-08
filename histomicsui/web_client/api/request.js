@@ -38,63 +38,9 @@ service.interceptors.request.use(
 service.interceptors.response.use(
   async response => {
     // console.log("响应拦截器", response);
-    if (response.data.code === 401) {
-      // token过期刷新token
-      try {
-        // 配置请求头
-        const config = {
-          headers: {
-            "Tenant-id": localStorage.getItem("tenantId") // 添加自定义头部字段
-          }
-        };
-        // const res = await axios.post(
-        //   `${baseURL}/system/auth/refresh-token?refreshToken=${sessionStorage.getItem(
-        //     "refreshToken"
-        //   )}`,
-        //   {
-        //     refreshToken: sessionStorage.getItem("refreshToken")
-        //   },
-        //   config
-        // );
-        const parsedLocation = window.location.search
-          .replace(/^\?/, "")
-          .split("&")
-          .map(pair => {
-            const [key, value] = pair
-              .split("=")
-              .map(p => decodeURIComponent(p));
-            return [key, value];
-          });
-        const search = Object.fromEntries(parsedLocation);
-        const res = await axios.post(
-          `${baseURL}/system/auth/refresh-token?ra=${search.ra ??
-            localStorage
-              .getItem("refreshToken")
-              .slice(0, 5)}&rb=${search.rb ??
-                localStorage.getItem("refreshToken").slice(5)}`,
-          {
-            ra: `${search.ra ??
-              localStorage.getItem("refreshToken").slice(0, 5)}`,
-            rb: `${search.rb ??
-              localStorage.getItem("refreshToken").slice(5)}`
-          },
-          config
-        );
-
-        console.log("刷新token1成功", res.data);
-        if (res.data.code === 0) {
-          search.ta = res.data?.data?.accessToken.slice(0, 5);
-          search.tb = res.data?.data?.accessToken.slice(5);
-          search.ra = res.data?.data?.refreshToken.slice(0, 5);
-          search.rb = res.data?.data?.refreshToken.slice(5);
-          window.location.search = new URLSearchParams(search).toString();
-          sessionStorage.setItem("refreshToken", res.data?.data?.refreshToken);
-          sessionStorage.setItem("successToken", res.data?.data?.accessToken);
-          return service(response.config);//刷新token后重新发送请求
-        }
-      } catch (error) {
-        console.log("刷新token失败", error);
-      }
+    if (response.data.code !== 0) {
+      // 如果code值不等于0，则表示请求失败，抛出异常
+      return Promise.reject(response.data);
     }
     return response.data;
   },
