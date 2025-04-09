@@ -16,6 +16,9 @@ var HeaderImageView = View.extend({
         },
         'click .h-open-annotated-image': function (evt) {
             events.trigger('h:openAnnotatedImageUi');
+        },
+        'click .h-open-taskdetail': function (evt) {
+            console.log('任务说明');
         }
     },
 
