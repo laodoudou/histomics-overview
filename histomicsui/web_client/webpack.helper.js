@@ -53,7 +53,7 @@ module.exports = function (config) {
             'axios$': process.env.NODE_ENV === 'production' ? 'axios/dist/axios.min.js' : 'axios/dist/axios.js'
         }
     };
-    config.module.noParse = /node_modules[\\/]axios[\\/]dist[\\/]axios\.(min\.)?js$/;
+    // config.module.noParse = /node_modules[\\/]axios[\\/]dist[\\/]axios\.(min\.)?js$/;
     config.plugins.push(new VueLoaderPlugin());
     return config;
 };
