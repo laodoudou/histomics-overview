@@ -28,14 +28,22 @@ module.exports = function (config) {
         })
     );
     config.module.rules.push({
-        // resource: {
-        //     test: /\.vue$/
-        // },
-        test: /\.vue$/,
-        exclude: /node_modules\/(?!axios)/, // 排除node_modules但保留axios
+        resource: {
+            test: /\.vue$/
+        },
         use: [
             require.resolve('vue-loader')
         ]
+    });
+    config.module.rules.push({
+        test: /\.js$/,
+        include: /node_modules[\\/]axios/,
+        use: {
+            loader: 'babel-loader',
+            options: {
+                presets: ['@babel/preset-env']
+            }
+        }
     });
     config.resolve = {
         alias: {
