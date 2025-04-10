@@ -8,21 +8,21 @@ import axios from "axios";
 
 const baseURL = "http://116.162.216.70:48080/admin-api";
 
-const token = localStorage.getItem("girderToken");
+const token = window.localStorage.getItem("girderToken");
 
 const service = axios.create({
   baseURL: baseURL,
   timeout: 100000,
   headers: {
     Authorization: `Bearer ${token}`,
-    "Tenant-id": localStorage.getItem("tenantId")
+    "Tenant-id": window.localStorage.getItem("tenantId") || "1"
   }
 });
 
 // 请求拦截器
 service.interceptors.request.use(
   config => {
-    const token = localStorage.getItem("girderToken");
+    const token = window.localStorage.getItem("girderToken");
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
       config.headers["Content-Type"] = "application/json";
