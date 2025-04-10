@@ -8,6 +8,7 @@ import View from '../View';
 
 import headerImageTemplate from '../../templates/layout/headerImage.pug';
 import '../../stylesheets/layout/headerImage.styl';
+import { getTaskDetail } from '../../api/platformApi.js'
 
 var HeaderImageView = View.extend({
     events: {
@@ -18,7 +19,7 @@ var HeaderImageView = View.extend({
             events.trigger('h:openAnnotatedImageUi');
         },
         'click .h-open-taskdetail': function (evt) {
-            console.log('任务说明');
+            this.getTaskDetailInfo();// 获取任务说明
         }
     },
 
@@ -80,7 +81,19 @@ var HeaderImageView = View.extend({
                 this._nextName = next.name;
             })
         ).done(() => this.render());
-    }
+    },
+
+    // 获取任务说明
+    getTaskDetailInfo() {
+        console.log('任务说明');
+        getTaskDetail({
+            id: this.model.id || 123
+        }).then((resp) => {
+            console.log(resp);
+        }).catch((err) => {
+            console.log('获取任务说明失败',err);
+        });
+    },
 });
 
 export default HeaderImageView;
