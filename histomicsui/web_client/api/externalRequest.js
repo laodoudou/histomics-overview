@@ -57,11 +57,12 @@ const externalApi = {
             .fail((error) => {
                 // 统一错误处理
                 console.error("API请求失败:", error);
-                return Promise.reject({
-                    status: error.status,
-                    message: error.responseJSON?.message || "请求失败",
-                    data: error.responseJSON,
-                });
+                return Promise.reject(error);
+                // return Promise.reject({
+                //     status: error.status,
+                //     message: error.responseJSON?.message || "请求失败",
+                //     data: error.responseJSON,
+                // });
             });
     },
 };
