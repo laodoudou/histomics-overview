@@ -18,7 +18,7 @@ export function getTaskDetail(params) {
 export function giveUpTask(data) {
   console.log('放弃标注任务',data);
   return externalApi.request({
-    url: "/annotation/task-detail/release-task",
+    path: "/annotation/task-detail/release-task",
     method: "post",
     data: data,
   });

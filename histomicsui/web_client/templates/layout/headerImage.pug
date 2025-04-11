@@ -21,12 +21,16 @@ if parentChain
       li
         span.g-item-breadcrumb-link(data-id=image.id, data-type='item')
           = image.name()
-button.btn.btn-default.navbar-btn.h-open-annotated-image(type='button')
-  | #[span.icon-list] Annotated images...
-button.btn.btn-default.navbar-btn.h-open-image(type='button')
-  | #[span.icon-picture] Open image...
+//- button.btn.btn-default.navbar-btn.h-open-annotated-image(type='button')
+//-   | #[span.icon-list] Annotated images...
+//- button.btn.btn-default.navbar-btn.h-open-image(type='button')
+//-   | #[span.icon-picture] Open image...
 button.btn.btn-default.navbar-btn.h-open-taskdetail(type='button')
   | 任务说明
+button.btn.btn-default.navbar-btn.h-open-giveup(type='button')
+  | 放弃
+button.btn.btn-default.navbar-btn.h-open-submit(type='button')
+  | 提交
 -
   var titlePre = '', titleNext = '';
   if (previousImageLink && nextImageLink) {

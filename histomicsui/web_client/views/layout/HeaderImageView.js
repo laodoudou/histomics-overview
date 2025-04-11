@@ -20,6 +20,12 @@ var HeaderImageView = View.extend({
         },
         'click .h-open-taskdetail': function (evt) {
             this.getTaskDetailInfo();// 获取任务说明
+        },
+        'click .h-giveup-task': function (evt) {
+            this.onGiveUpTask();
+        },
+        'click .h-open-submit': function (evt) {
+            console.log('点击提交');
         }
     },
 
@@ -92,9 +98,12 @@ var HeaderImageView = View.extend({
         }).catch((err) => {
             console.log('获取任务说明失败',err);
         });
+    },
 
+    // 放弃任务
+    onGiveUpTask() {
         giveUpTask({
-            id: this.imageModel.id || 123
+            id: this.imageModel.id
         }).then((resp) => {
             console.log(resp);
         }).catch((err) => {
