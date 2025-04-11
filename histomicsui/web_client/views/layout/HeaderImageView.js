@@ -86,13 +86,14 @@ var HeaderImageView = View.extend({
     // 获取任务说明
     getTaskDetailInfo() {
         console.log('任务说明');
-        getTaskDetail({
-            id: this.model.id || 123
-        }).then((resp) => {
-            console.log(resp);
-        }).catch((err) => {
-            console.log('获取任务说明失败',err);
-        });
+        getTaskDetail(this.model.id || 123);
+        // getTaskDetail({
+        //     id: this.model.id || 123
+        // }).then((resp) => {
+        //     console.log(resp);
+        // }).catch((err) => {
+        //     console.log('获取任务说明失败',err);
+        // });
     },
 });
 
