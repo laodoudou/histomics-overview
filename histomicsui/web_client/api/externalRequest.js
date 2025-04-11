@@ -17,7 +17,12 @@ const externalApi = {
 
     request: function (options) {
         // 应用请求拦截器
-        let processedOptions = { ...options };
+        let processedOptions = {};
+        for (let key in options) {
+            if (options.hasOwnProperty(key)) {
+                processedOptions[key] = options[key];
+            }
+        }
         this.requestInterceptors.forEach((interceptor) => {
             processedOptions =
                 interceptor(processedOptions) || processedOptions;
@@ -26,10 +31,17 @@ const externalApi = {
         return $.ajax({
             url: this.baseUrl + (processedOptions.path || ""),
             type: processedOptions.method || "GET",
-            headers: {
-                "Content-Type": "application/json",
-                ...processedOptions.headers,
-            },
+            headers: (function() {
+                let headers = {
+                    "Content-Type": "application/json"
+                };
+                for (let key in processedOptions.headers) {
+                    if (processedOptions.headers.hasOwnProperty(key)) {
+                        headers[key] = processedOptions.headers[key];
+                    }
+                }
+                return headers;
+            })(),
             data: JSON.stringify(processedOptions.data),
             dataType: "json",
         })
@@ -58,10 +70,8 @@ const externalApi = {
 externalApi.addRequestInterceptor((options) => {
     const token = window.localStorage.getItem("girderToken");
     if (token) {
-        options.headers = {
-            ...options.headers,
-            Authorization: `Bearer ${token}`,
-        };
+        options.headers = options.headers || {};
+        options.headers.Authorization = "Bearer " + token;
     }
     return options;
 });

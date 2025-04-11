@@ -1,4 +1,4 @@
-// import externalApi from "./externalRequest";
+import externalApi from "./externalRequest";
 
 /**
  * 获取任务详情
@@ -7,9 +7,9 @@
  */ 
 export function getTaskDetail(params) {
   console.log('获取任务详情',params);
-  // return externalApi.request({
-  //   path: "/annotation/task-detail/get-answer-detail",
-  //   method: "get",
-  //   params
-  // });
+  return externalApi.request({
+    path: "/annotation/task-detail/get-answer-detail",
+    method: "get",
+    params
+  });
 }
