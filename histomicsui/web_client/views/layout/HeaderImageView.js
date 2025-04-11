@@ -21,7 +21,7 @@ var HeaderImageView = View.extend({
         'click .h-open-taskdetail': function (evt) {
             this.getTaskDetailInfo();// 获取任务说明
         },
-        'click .h-giveup-task': function (evt) {
+        'click .h-open-giveup': function (evt) {
             this.onGiveUpTask();
         },
         'click .h-open-submit': function (evt) {
