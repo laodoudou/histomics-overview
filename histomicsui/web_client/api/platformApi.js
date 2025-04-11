@@ -10,6 +10,16 @@ export function getTaskDetail(params) {
   return externalApi.request({
     path: "/annotation/task-detail/get-answer-detail",
     method: "get",
-    params
+    params:params,
   });
 }
+
+// 放弃标注任务
+export function giveUpTask(data) {
+  console.log('放弃标注任务',data);
+  return externalApi.request({
+    url: "/annotation/task-detail/release-task",
+    method: "post",
+    data: data,
+  });
+};

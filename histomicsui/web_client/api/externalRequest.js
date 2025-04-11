@@ -28,9 +28,28 @@ const externalApi = {
                 interceptor(processedOptions) || processedOptions;
         });
 
+        let url = this.baseUrl + (processedOptions.path || "");
+        let data = null;
+        let method = processedOptions.method || "GET";
+        if (processedOptions.params) {
+            // params则拼接参数到 URL 后面
+            let queryParams = [];
+            for (let paramKey in processedOptions.params) {
+                if (processedOptions.params.hasOwnProperty(paramKey)) {
+                    queryParams.push(encodeURIComponent(paramKey) + "=" + encodeURIComponent(processedOptions.params[paramKey]));
+                }
+            }
+            if (queryParams.length > 0) {
+                url += "?" + queryParams.join("&");
+            }
+        } else {
+            // data则将参数放在 data 字段中
+            data = JSON.stringify(processedOptions.data);
+        }
+
         return $.ajax({
-            url: this.baseUrl + (processedOptions.path || ""),
-            type: processedOptions.method || "GET",
+            url: url,
+            type: method,
             headers: (function() {
                 let headers = {
                     "Content-Type": "application/json"
@@ -42,7 +61,7 @@ const externalApi = {
                 }
                 return headers;
             })(),
-            data: JSON.stringify(processedOptions.data),
+            data: data,
             dataType: "json",
         })
             .then((response) => {
@@ -58,11 +77,6 @@ const externalApi = {
                 // 统一错误处理
                 console.error("API请求失败:", error);
                 return Promise.reject(error);
-                // return Promise.reject({
-                //     status: error.status,
-                //     message: error.responseJSON?.message || "请求失败",
-                //     data: error.responseJSON,
-                // });
             });
     },
 };
